@@ -1,0 +1,10 @@
+{% extends "converter/base.html "%}
+{% block content %}
+<div id='converter'>
+    <form method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class='btn btn-outline-info mb-2' type='submit'>Convert</button>
+    </form>
+</div>
+{% endblock content %}

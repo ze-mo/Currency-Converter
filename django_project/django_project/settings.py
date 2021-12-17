@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 DATABASES = {
     'default': {},
 
-    'user_db': {
+    'user_data': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'user_db',
+        'NAME': 'user_data',
         'USER': 'root',
         'PASSWORD': 'main3478',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
@@ -128,7 +128,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-DATABASE_ROUTERS = ['routers.db_routers.UserRouter',]
+DATABASE_ROUTERS = ['routers.db_routers.AuthRouter', 'routers.db_routers.UserRouter',]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

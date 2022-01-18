@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from django.db.backends.mysql.base import DatabaseWrapper
+DatabaseWrapper.data_types['DateTimeField']='datetime'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,6 +35,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'converter.apps.ConverterConfig',
     'users.apps.UsersConfig',
+    'forex.apps.ForexConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,17 +79,12 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {},
-
-    'user_data': {
-        'ENGINE': 'django.db.backends.mysql', 
+    'default': {'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'user_data',
-        'USER': 'root',
+        'USER': 'django_admin',
         'PASSWORD': 'main3478',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306'
-    }
-
+        'PORT': '3306'}
 }
 
 
@@ -128,7 +126,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-DATABASE_ROUTERS = ['routers.db_routers.AuthRouter', 'routers.db_routers.UserRouter',]
+DATABASE_ROUTERS = ['routers.db_routers.AuthRouter']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

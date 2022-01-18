@@ -1,7 +1,7 @@
 from django import forms
 import requests
 
-currency_abbreviations = ['BGN', 'EUR', 'USD', 'AUD', 'JPY', 'CHF', 'GBP', 'CZK', 'HRK']
+currency_abbreviations = ['BGN', 'EUR', 'USD','CHF', 'GBP', 'CNY']
 
 def convert_list(lst=list):
     tuple_list_of_curr = []

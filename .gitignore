@@ -128,3 +128,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Migration files
+django_project/forex/migrations
+django_project/users/migrations
+django_project/converter/migrations

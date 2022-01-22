@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-from django.db.backends.mysql.base import DatabaseWrapper
-DatabaseWrapper.data_types['DateTimeField']='datetime'
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_cassandra_engine',
     'converter.apps.ConverterConfig',
     'users.apps.UsersConfig',
     'forex.apps.ForexConfig',
@@ -79,12 +79,38 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {'ENGINE': 'django.db.backends.mysql', 
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        },
+
+    'users_db': {
+        'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'user_data',
         'USER': 'django_admin',
         'PASSWORD': 'main3478',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306'}
+        'PORT': '3306'
+        },
+
+    'forex_db': {
+        'ENGINE': 'django_cassandra_engine', # Install this engine from https://pypi.org/project/django-cassandra-engine/
+        'NAME': 'forex_data', 
+        'USER': 'cassandra',
+        'PASSWORD': 'cassandra',
+        'HOST': 'localhost',
+        'OPTIONS': {
+            'replication': {
+                'strategy_class': 'SimpleStrategy',
+                'replication_factor': 1
+            },
+            'connection': {
+                'lazy_connect': True,
+                'retry_connect': True,
+                'port': 9042
+                          }
+                     }
+        }
 }
 
 
@@ -126,7 +152,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-DATABASE_ROUTERS = ['routers.db_routers.AuthRouter']
+DATABASE_ROUTERS = ['routers.db_routers.AuthRouter', 'routers.db_routers.ForexRouter', 'routers.db_routers.UserRouter']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

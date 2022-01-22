@@ -1,9 +1,12 @@
-from django.db import models
+import uuid
+from cassandra.cqlengine import columns
+from django_cassandra_engine.models import DjangoCassandraModel
 
-class ForexTestTable(models.Model):
-    last_refresh = models.DateTimeField()
-    currency = models.CharField(max_length=50)
-    amount = models.IntegerField()
+class RatesByPairsModel(DjangoCassandraModel):
+    class Meta:
+        get_pk_field = 'id'
 
-    def __str__(self):
-        return self.currency
+    pair = columns.Text(primary_key=True, required=True)
+    id = columns.TimeUUID(primary_key=True)
+    exchange_rate = columns.Float()
+    last_refresh = columns.DateTime()

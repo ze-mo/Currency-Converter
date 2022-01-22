@@ -24,17 +24,17 @@ class AuthRouter:
             return db == 'default'
         return None
 
-"""class UserRouter:
+class UserRouter:
     route_app_labels = {'users'}
 
     def db_for_read(self, model, **hints):
         if model._meta.app_label in self.route_app_labels:
-            return 'user_data'
+            return 'users_db'
         return None
 
     def db_for_write(self, model, **hints):
         if model._meta.app_label in self.route_app_labels:
-            return 'user_data'
+            return 'users_db'
         return None
 
     def allow_relation(self, obj1, obj2, **hints):
@@ -47,23 +47,23 @@ class AuthRouter:
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
         if app_label in self.route_app_labels:
-            return db == 'user_data'
-        return None"""
+            return db == 'users_db'
+        return None
 
 class ForexRouter:
     route_app_labels = {'forex'}
 
     def db_for_read(self, model, **hints):
         if model._meta.app_label in self.route_app_labels:
-            return 'forex_data'
+            return 'forex_db'
         return None
 
     def db_for_write(self, model, **hints):
         if model._meta.app_label in self.route_app_labels:
-            return 'forex_data'
+            return 'forex_db'
         return None
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
         if app_label in self.route_app_labels:
-            return db == 'forex_data'
+            return db == 'forex_db'
         return None

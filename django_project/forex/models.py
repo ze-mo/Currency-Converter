@@ -10,3 +10,6 @@ class RatesByPairsModel(DjangoCassandraModel):
     id = columns.TimeUUID(primary_key=True)
     exchange_rate = columns.Float()
     last_refresh = columns.DateTime()
+
+    def __str__(self):
+        return self.pair

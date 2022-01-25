@@ -16,7 +16,8 @@ def home(request):
         else:
             result = RatesByPairsModel.objects.filter(pair=f'{current_currency}{desired_currency}').first()
             exchange_rate = result.exchange_rate
-        result = f"{int(amount) * exchange_rate} {desired_currency}  {exchange_rate}"
+        float_result = float(amount) * exchange_rate
+        result = "{:.2f} {}".format(float_result, desired_currency)
         context = {
             'amount': amount,
             'current_currency': current_currency,

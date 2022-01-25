@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'converter.apps.ConverterConfig',
     'users.apps.UsersConfig',
     'forex.apps.ForexConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -158,3 +159,5 @@ DATABASE_ROUTERS = ['routers.db_routers.AuthRouter', 'routers.db_routers.ForexRo
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

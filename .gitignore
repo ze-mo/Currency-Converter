@@ -133,3 +133,7 @@ dmypy.json
 django_project/forex/migrations
 django_project/users/migrations
 django_project/converter/migrations
+
+
+# Media
+django_project/media

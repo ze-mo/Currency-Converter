@@ -1,9 +1,34 @@
 from django.db import models
+from django.contrib.auth.models import User
+from PIL import Image
 
-# Create your models here.
-class UserInfo(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='profile_pics/default.jpg', upload_to='profile_pics')
 
     def __str__(self):
-        return self.first_name
+        return f"{self.user.username} Profile"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.image.path)
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
+
+
+class RatesHistory(models.Model):
+    profile_id = models.IntegerField()
+    pair = models.CharField(max_length=10, null=True)
+    amount = models.FloatField(null=True)
+    exchange_rate = models.FloatField(null=True)
+    result = models.FloatField(null=True)
+    conversion_date = models.DateTimeField()
+
+    class Meta:
+        ordering = ['-conversion_date']
+
+"""    def __str__(self):
+        return f'{self.pair} {self.amount} {self.exchange_rate} {self.result} {self.conversion_date}'"""
+

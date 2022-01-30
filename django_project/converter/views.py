@@ -54,9 +54,3 @@ def home(request):
 
         return render(request, 'converter/home.html', {'form': form})
 
-"""class RatesListView(ListView):
-    user_model = RatesHistory
-    template_name = 'converter/home.html'
-    context_object_name = ''
-    #user_model.searched
-    #ordering = ['-date_posted']"""

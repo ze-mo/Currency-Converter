@@ -29,6 +29,3 @@ class RatesHistory(models.Model):
     class Meta:
         ordering = ['-conversion_date']
 
-"""    def __str__(self):
-        return f'{self.pair} {self.amount} {self.exchange_rate} {self.result} {self.conversion_date}'"""
-

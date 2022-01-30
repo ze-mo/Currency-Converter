@@ -7,4 +7,28 @@
         <button class='btn btn-outline-info mb-2' type='submit'>Convert</button>
     </form>
 </div>
+<br>
+
+{% if request.user.is_authenticated %}
+
+<h3>Conversion History</h3>
+
+<table>
+    <tr>
+        {% for key, value in object_dict.items %}
+            <th>{{ key }}</th>
+        {% endfor %}
+    </tr>
+
+    {% for record in records_list %}
+    <tr>
+        {% for key, value in record.items %}
+            <td> {{ value }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+
+
+</table>
+{% endif %}
 {% endblock content %}

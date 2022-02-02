@@ -1,12 +1,12 @@
 {% extends "converter/base.html" %}
 {% block content %}
-<div id='converter'>
+<div class='converter'>
     <content>
         {% csrf_token %}
         {{ result }}
     </content>
     <br>
     <br>
-    <h6><a href="{% url 'home-page' %}">Return to Converter</a></h6>
+    <a href="{% url 'home-page' %}">Return to Converter</a>
 </div>
 {% endblock content %}

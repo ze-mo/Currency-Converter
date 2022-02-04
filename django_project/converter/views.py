@@ -22,7 +22,7 @@ def home(request):
             result = RatesByPairsModel.objects.filter(pair=pair).first()
             exchange_rate = result.exchange_rate
         float_result = float(amount) * exchange_rate
-        formatted_exchange_rate = float("{:.2f}".format(exchange_rate))
+        formatted_exchange_rate = float("{:.4f}".format(exchange_rate))
         result = "{:.2f} {}".format(float_result, desired_currency)
         formatted_result = float("{:.2f}".format(float_result))
 

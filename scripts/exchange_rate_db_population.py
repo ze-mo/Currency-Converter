@@ -37,7 +37,7 @@ def populate_db(pairs):
                 else:
                     refreshed = key
                     close_value = value["4. close"]
-                    session.execute(f"INSERT INTO rates_by_pairs_model (pair, id, exchange_rate, last_refresh) VALUES ('{pair}', now(), {close_value}, '{refreshed}')")
+                    session.execute(f"INSERT INTO rates_by_pairs (pair, last_refreshed, exchange_rate, id) VALUES ('{pair}', '{refreshed}', {close_value}, now()) if not exists")
             counter += 1
             print(f'{pair} added...')
 

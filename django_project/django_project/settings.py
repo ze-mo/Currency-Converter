@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'user_data',
         'USER': 'django_admin',
-        'PASSWORD': 'main3478',
+        'PASSWORD': f"{os.environ.get('DJANGO_ADMIN_PASS')}",
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306'
         },
@@ -133,6 +133,27 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    },
+}
 
 
 # Internationalization

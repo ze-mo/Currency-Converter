@@ -3,6 +3,7 @@ from django import forms
 currency_abbreviations = ['BGN', 'EUR', 'USD','CHF', 'GBP', 'CNY']
 
 def convert_list(lst=list):
+    """"Convert currency abbreviations into a list of tuples."""
     tuple_list_of_curr = []
     for x in lst:
         tp = (x, x)

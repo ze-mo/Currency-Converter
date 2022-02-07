@@ -25,7 +25,11 @@
     {% for record in records_list %}
     <tr>
         {% for key, value in record.items %}
+            {% if key == 'conversion_date' %}
+            <td> {{ value }} <b>GMT</b></td>
+            {% else %}
             <td> {{ value }} </td>
+            {% endif %}
         {% endfor %}
     </tr>
     {% endfor %}

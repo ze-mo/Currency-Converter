@@ -2,14 +2,14 @@ import uuid
 from cassandra.cqlengine import columns
 from django_cassandra_engine.models import DjangoCassandraModel
 
-class RatesByPairsModel(DjangoCassandraModel):
+class RatesByPairs(DjangoCassandraModel):
     class Meta:
         get_pk_field = 'id'
 
     pair = columns.Text(primary_key=True, required=True)
-    id = columns.TimeUUID(primary_key=True)
+    last_refreshed = columns.DateTime(primary_key=True, required=True)
     exchange_rate = columns.Float()
-    last_refresh = columns.DateTime()
+    id = columns.TimeUUID(primary_key=True)
 
     def __str__(self):
         return self.pair

@@ -10,6 +10,7 @@ django-cassandra-engine==1.6.3
 django-crispy-forms==1.13.0
 django-storages==1.12.3
 geomet==0.2.1.post1
+gunicorn==20.1.0
 idna==3.3
 jmespath==0.10.0
 mysqlclient==2.1.0

@@ -46,7 +46,7 @@ def populate_db(pairs):
 
     counter = 0
     for pair in pairs:
-        url = f'https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol={pair[:3]}&to_symbol={pair[3:]}&interval=15min&outputsize=compact&apikey={os.environ.get("FOREX_API_KEY")}'
+        url = f'https://www.alphavantage.co/query?function=FX_DAILY&from_symbol={pair[:3]}&to_symbol={pair[3:]}&interval=15min&outputsize=compact&apikey={os.environ.get("FOREX_API_KEY")}'
         r = requests.get(url)
         data_dict = r.json()
         logger.info(r.status_code)

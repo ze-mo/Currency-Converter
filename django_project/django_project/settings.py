@@ -87,34 +87,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
         },
-
-    'users_db': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'user_data',
-        'USER': 'django_admin',
-        'PASSWORD': f"{os.environ.get('DJANGO_ADMIN_PASS')}",
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306'
-        },
-
-    'forex_db': {
-        'ENGINE': 'django_cassandra_engine', # Install this engine from https://pypi.org/project/django-cassandra-engine/
-        'NAME': 'forex_data', 
-        'USER': 'cassandra',
-        'PASSWORD': 'cassandra',
-        'HOST': 'localhost',
-        'OPTIONS': {
-            'replication': {
-                'strategy_class': 'SimpleStrategy',
-                'replication_factor': 1
-            },
-            'connection': {
-                'lazy_connect': True,
-                'retry_connect': True,
-                'port': 9042
-                          }
-                     }
-        }
 }
 
 
@@ -177,8 +149,6 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
-DATABASE_ROUTERS = ['routers.db_routers.AuthRouter', 'routers.db_routers.ForexRouter', 'routers.db_routers.UserRouter']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -1,4 +1,3 @@
-from cassandra.cluster import Cluster
 import requests
 import time
 import itertools
@@ -6,9 +5,16 @@ from datetime import datetime
 import datetime
 import logging
 import os
+import mysql.connector
 
-cluster = Cluster()
-session = cluster.connect('forex_data')
+db = mysql.connector.connect(
+    host="localhost",
+    user='django_admin',
+    passwd=f"{os.environ.get('DJANGO_ADMIN_PASS')}",
+    database="user_data"
+    )
+
+mycursor = db.cursor()
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -58,7 +64,8 @@ def populate_db(pairs):
                 else:
                     refreshed = key
                     close_value = value["4. close"]
-                    session.execute(f"INSERT INTO rates_by_pairs (pair, last_refreshed, exchange_rate, id) VALUES ('{pair}', '{refreshed}', {close_value}, now()) if not exists")
+                    mycursor.execute(f"REPLACE INTO rates_by_pairs (pair, last_refreshed, exchange_rate) VALUES ('{pair}', '{refreshed}', {close_value})")
+                    db.commit()
             counter += 1
             logger.info(f'{pair} Added... ')
 

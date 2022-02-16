@@ -7,14 +7,11 @@ import logging
 import os
 import psycopg2
 
-db = psycopg2.connect(
-    host="c2-34-233-157-189.compute-1.amazonaws.com",
-    user='thuokvbkuatakm',
-    passwd='a6549c6ccda115e6399a1bf102733cfe7a39fb09ee26975e2e6b012bedb5b17b',
-    database="ddfk2f2qu4a55s"
-    )
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
-mycursor = db.cursor()
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+mycursor = conn.cursor()
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

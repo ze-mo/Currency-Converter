@@ -16,6 +16,9 @@ from django.db import models
         return self.pair"""
 
 class RatesByPairs(models.Model):
-    pair = models.CharField(max_length=10, null=True)
+    pair = models.CharField(max_length=10, null=False, primary_key=True, default=None)
     last_refreshed = models.DateTimeField()
     exchange_rate = models.FloatField(null=True)
+
+    class Meta:
+        unique_together = (('pair', 'last_refreshed'),)

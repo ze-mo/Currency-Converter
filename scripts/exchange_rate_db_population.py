@@ -5,13 +5,13 @@ from datetime import datetime
 import datetime
 import logging
 import os
-import mysql.connector
+import psycopg2
 
-db = mysql.connector.connect(
-    host="localhost",
-    user='django_admin',
-    passwd=f"{os.environ.get('DJANGO_ADMIN_PASS')}",
-    database="user_data"
+db = psycopg2.connect(
+    host="c2-34-233-157-189.compute-1.amazonaws.com",
+    user='thuokvbkuatakm',
+    passwd='a6549c6ccda115e6399a1bf102733cfe7a39fb09ee26975e2e6b012bedb5b17b',
+    database="ddfk2f2qu4a55s"
     )
 
 mycursor = db.cursor()
@@ -64,8 +64,7 @@ def populate_db(pairs):
                 else:
                     refreshed = key
                     close_value = value["4. close"]
-                    mycursor.execute(f"REPLACE INTO rates_by_pairs (pair, last_refreshed, exchange_rate) VALUES ('{pair}', '{refreshed}', {close_value})")
-                    db.commit()
+                    mycursor.execute(f"INSERT INTO rates_by_pairs (pair, last_refreshed, exchange_rate) VALUES ('{pair}', '{refreshed}', {close_value}) ON CONFLICT (pair, last_refreshed) DO NOTHING")
             counter += 1
             logger.info(f'{pair} Added... ')
 
@@ -81,3 +80,4 @@ def populate_db(pairs):
 if __name__ == "__main__":
     populate_db(set_of_paired_currencies)
     logger.info("Finished")
+    mycursor.close()

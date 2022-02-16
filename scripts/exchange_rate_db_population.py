@@ -18,8 +18,8 @@ logger.setLevel(logging.INFO)
 
 formatter = logging.Formatter('%(asctime)s | %(name)s | %(message)s')
 
-file_handler = logging.FileHandler("scripts/db_population.log")
-error_file_handler = logging.FileHandler("scripts/db_population.log")
+file_handler = logging.FileHandler("db_population.log")
+error_file_handler = logging.FileHandler("db_population.log")
 
 file_handler.setLevel(logging.INFO)
 error_file_handler.setLevel(logging.ERROR)

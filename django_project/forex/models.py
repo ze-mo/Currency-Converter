@@ -2,6 +2,7 @@ import uuid
 from cassandra.cqlengine import columns
 from django_cassandra_engine.models import DjangoCassandraModel
 from django.db import models
+from viewflow.fields import CompositeKey
 
 """class RatesByPairs(DjangoCassandraModel):
     class Meta:
@@ -16,9 +17,7 @@ from django.db import models
         return self.pair"""
 
 class RatesByPairs(models.Model):
-    pair = models.CharField(max_length=10, null=False, primary_key=True, default=None)
+    id = CompositeKey(columns=['pair', 'last_refreshed'])
+    pair = models.CharField(max_length=10)
     last_refreshed = models.DateTimeField()
     exchange_rate = models.FloatField(null=True)
-
-    class Meta:
-        unique_together = (('pair', 'last_refreshed'),)

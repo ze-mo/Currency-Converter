@@ -7,7 +7,7 @@ import logging
 import os
 import psycopg2
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
+DATABASE_URL = 'postgres://thuokvbkuatakm:a6549c6ccda115e6399a1bf102733cfe7a39fb09ee26975e2e6b012bedb5b17b@ec2-34-233-157-189.compute-1.amazonaws.com:5432/ddfk2f2qu4a55s'
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
@@ -43,7 +43,7 @@ def populate_db(pairs):
 
     counter = 0
     for pair in pairs:
-        url = f'https://www.alphavantage.co/query?function=FX_DAILY&from_symbol={pair[:3]}&to_symbol={pair[3:]}&interval=15min&outputsize=compact&apikey={os.environ.get("FOREX_API_KEY")}'
+        url = f'https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol={pair[:3]}&to_symbol={pair[3:]}&interval=15min&outputsize=compact&apikey={os.environ.get("FOREX_API_KEY")}'
         r = requests.get(url)
         data_dict = r.json()
         logger.info(r.status_code)
@@ -61,7 +61,7 @@ def populate_db(pairs):
                 else:
                     refreshed = key
                     close_value = value["4. close"]
-                    mycursor.execute(f"INSERT INTO rates_by_pairs (pair, last_refreshed, exchange_rate) VALUES ('{pair}', '{refreshed}', {close_value}) ON CONFLICT (pair, last_refreshed) DO NOTHING")
+                    mycursor.execute(f"INSERT INTO forex_ratesbypairs (pair, last_refreshed, exchange_rate) VALUES ('{pair}', '{refreshed}', {close_value}) ON CONFLICT (pair, last_refreshed) DO NOTHING")
             counter += 1
             logger.info(f'{pair} Added... ')
 

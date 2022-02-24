@@ -50,8 +50,9 @@ def populate_db(pairs):
             for key, value in values_by_date.items():
                     refreshed = key
                     close_value = value["4. close"]
-                    mycursor.execute(f"INSERT INTO forex_ratesbypairs (pair, last_refreshed, exchange_rate) VALUES ('{pair}', '{refreshed}', {close_value}) ON CONFLICT (pair, last_refreshed) DO NOTHING")
+                    mycursor.execute(f"INSERT INTO forex_ratesbypairs (pair, last_refreshed, exchange_rate) VALUES ('{pair}', '{refreshed}', {close_value})")
                     conn.commit()
+                    break
             counter += 1
             logger.info(f'{pair} Added... ')
 

@@ -1,13 +1,11 @@
 import requests
 import time
 import itertools
-from datetime import datetime
-import datetime
 import logging
 import os
 import psycopg2
 
-DATABASE_URL = 'postgres://thuokvbkuatakm:a6549c6ccda115e6399a1bf102733cfe7a39fb09ee26975e2e6b012bedb5b17b@ec2-34-233-157-189.compute-1.amazonaws.com:5432/ddfk2f2qu4a55s'
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
@@ -38,30 +36,22 @@ for perm_tuple in list_of_permutations:
 
 def populate_db(pairs):
     """Submits a request to the Alphavantage API with the parameters set for each permutation of the currencies list.
-    After the data is retrieved, it's upserted into the rates_by_pairs table, where each record represents a currency pair 
-    with its exchange rate at a 15 minute interval."""
+    After the data is retrieved, it's upserted into the forex_ratesbypairs table, where each record represents a currency pair 
+    with its exchange rate for the day, specified in the last_refreshed column."""
 
     counter = 0
     for pair in pairs:
-        url = f'https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol={pair[:3]}&to_symbol={pair[3:]}&interval=15min&outputsize=compact&apikey={os.environ.get("FOREX_API_KEY")}'
+        url = f'https://www.alphavantage.co/query?function=FX_DAILY&from_symbol={pair[:3]}&to_symbol={pair[3:]}&interval=15min&outputsize=compact&apikey={os.environ.get("FOREX_API_KEY")}'
         r = requests.get(url)
         data_dict = r.json()
         logger.info(r.status_code)
         try:
-            values_by_date = data_dict["Time Series FX (15min)"]
-            last_refreshed_api = data_dict["Meta Data"]["4. Last Refreshed"]
-            last_refresh_date = datetime.datetime.strptime(last_refreshed_api, '%Y-%m-%d %H:%M:%S')
+            values_by_date = data_dict["Time Series FX (Daily)"]
             for key, value in values_by_date.items():
-                key_date_obj = datetime.datetime.strptime(key, '%Y-%m-%d %H:%M:%S')
-                tdelta = datetime.timedelta(minutes=45)
-                limit = last_refresh_date - tdelta
-                if key_date_obj > limit:
-                    logger.info(f'{pair} | {key_date_obj} not included')
-                    continue
-                else:
                     refreshed = key
                     close_value = value["4. close"]
                     mycursor.execute(f"INSERT INTO forex_ratesbypairs (pair, last_refreshed, exchange_rate) VALUES ('{pair}', '{refreshed}', {close_value}) ON CONFLICT (pair, last_refreshed) DO NOTHING")
+                    conn.commit()
             counter += 1
             logger.info(f'{pair} Added... ')
 

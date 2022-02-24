@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
 ALLOWED_HOSTS = ['mycurrencyconverterproject.herokuapp.com', '127.0.0.1']
 
@@ -86,10 +86,10 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ddfk2f2qu4a55s',
-        'USER': 'thuokvbkuatakm',
-        'PASSWORD': 'a6549c6ccda115e6399a1bf102733cfe7a39fb09ee26975e2e6b012bedb5b17b',
-        'HOST': 'ec2-34-233-157-189.compute-1.amazonaws.com',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
         'PORT':  5432
     }
 }

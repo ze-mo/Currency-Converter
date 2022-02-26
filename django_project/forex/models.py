@@ -17,7 +17,6 @@ from viewflow.fields import CompositeKey
         return self.pair"""
 
 class RatesByPairs(models.Model):
-    id = CompositeKey(columns=['pair', 'last_refreshed'])
-    pair = models.CharField(max_length=10)
+    pair = models.CharField(primary_key=True, max_length=10)
     last_refreshed = models.DateTimeField()
     exchange_rate = models.FloatField(null=True)

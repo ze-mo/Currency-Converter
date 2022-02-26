@@ -40,9 +40,12 @@ def populate_db(pairs):
     """Submits a request to the Alphavantage API with the parameters set for each permutation of the currencies list.
     After the data is retrieved, it's upserted into the rates_by_pairs table, where each record represents a currency pair 
     with its exchange rate at a 15 minute interval."""
+
+
     mycursor.execute("TRUNCATE TABLE forex_ratesbypairs")
     conn.commit()
-    counter = 0
+    
+    """counter = 0
     for pair in pairs:
         url = f'https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol={pair[:3]}&to_symbol={pair[3:]}&interval=15min&outputsize=compact&apikey={os.environ.get("FOREX_API_KEY")}'
         r = requests.get(url)
@@ -70,11 +73,11 @@ def populate_db(pairs):
 
         except Exception as e:
             logger.exception(e)
-        
+
         if counter == 5:
             logger.info('Sleeping 60 seconds... ')
             time.sleep(60)
-            counter = 0
+            counter = 0"""
 
 if __name__ == "__main__":
     populate_db(set_of_paired_currencies)

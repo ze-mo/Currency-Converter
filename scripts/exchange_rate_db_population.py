@@ -37,7 +37,7 @@ for perm_tuple in list_of_permutations:
 def populate_db(pairs):
     """Submits a request to the Alphavantage API with the parameters set for each permutation of the currencies list.
     After the data is retrieved, it's upserted into the forex_ratesbypairs table, where each record represents a currency pair 
-    with its exchange rate. Realtime rates are updated every 6 minutes."""
+    with its exchange rate. Realtime rates are updated every 10 minutes."""
 
     counter = 0
     for pair in pairs:
@@ -64,5 +64,4 @@ def populate_db(pairs):
             counter = 0
 
 if __name__ == "__main__":
-    while True:
-        populate_db(set_of_paired_currencies)
+    populate_db(set_of_paired_currencies)

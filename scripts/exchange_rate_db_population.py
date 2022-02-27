@@ -5,7 +5,7 @@ import logging
 import os
 import psycopg2
 
-DATABASE_URL = "postgres://thuokvbkuatakm:a6549c6ccda115e6399a1bf102733cfe7a39fb09ee26975e2e6b012bedb5b17b@ec2-34-233-157-189.compute-1.amazonaws.com:5432/ddfk2f2qu4a55s"
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
@@ -28,7 +28,7 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.addHandler(error_file_handler)
 
-list_of_currencies = ['BGN', 'GBP', 'USD', 'CNY', 'CHF', 'EUR']
+list_of_currencies = ['BGN', 'GBP', 'USD', 'CHF', 'EUR']
 list_of_permutations = list(itertools.permutations(list_of_currencies))
 set_of_paired_currencies = set()
 for perm_tuple in list_of_permutations:

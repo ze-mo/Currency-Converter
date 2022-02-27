@@ -5,7 +5,7 @@ import logging
 import os
 import psycopg2
 
-DATABASE_URL = os.environ.get("DATABASE_URL")
+DATABASE_URL = "postgres://thuokvbkuatakm:a6549c6ccda115e6399a1bf102733cfe7a39fb09ee26975e2e6b012bedb5b17b@ec2-34-233-157-189.compute-1.amazonaws.com:5432/ddfk2f2qu4a55s"
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
@@ -49,7 +49,7 @@ def populate_db(pairs):
             realtime_rate = data_dict["Realtime Currency Exchange Rate"]
             last_refreshed_value = realtime_rate["6. Last Refreshed"]
             exchange_rate = realtime_rate["5. Exchange Rate"]
-            mycursor.execute(f"INSERT INTO forex_ratesbypairs (pair, last_refreshed, exchange_rate) VALUES ('{pair}', '{last_refreshed_value}', {exchange_rate})")
+            mycursor.execute(f"INSERT INTO forex_ratesbypairs (pair, last_refreshed, exchange_rate) VALUES ('{pair}', '{last_refreshed_value}', {exchange_rate}) ON CONFLICT (pair) DO UPDATE SET last_refreshed=EXCLUDED.last_refreshed, exchange_rate=EXCLUDED.exchange_rate")
             conn.commit()
             counter += 1
             logger.info(f'{pair} Added... ')

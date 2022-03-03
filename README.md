@@ -18,7 +18,7 @@ Heroku scheduler:
 
 ![274684570_673886677400175_4655635201722705675_n](https://user-images.githubusercontent.com/90049004/156538736-0072b119-0822-4400-bcc2-8748e8189be6.png)
 
-The app uses a free web dyno. Therefore, if the dyno doesn't receive no web traffic in a 30-minute period, it will sleep. In order to avoid this, the website is pinged every 15 minutes.
+The app uses a free web dyno. Therefore, if the dyno doesn't receive any web traffic in a 30-minute period, it will sleep. In order to avoid this, the website is pinged every 15 minutes.
 
 ![274204619_930172414342331_8691057965165666922_n](https://user-images.githubusercontent.com/90049004/156539231-9436bd96-259d-4e80-86c0-d87e220ab79e.png)
 
@@ -29,10 +29,6 @@ The app uses a free web dyno. Therefore, if the dyno doesn't receive no web traf
 - Conversion history pagination
 - Responsive web design for mobile compatibility
 - Currency fluctuation charts
-
-Known issues:
-- Email used for sending password confirmation emails is unreliable, due to Gmail policy which automatically disables sending emails from 3rd party apps after a certain amount of time. Issue is temporarily handled by a cron job.
-
 
 *Disclaimer:
 Please refer to the postgres-deployment branch for the deployed version of the website!

@@ -18,7 +18,7 @@ Heroku scheduler:
 
 ![274684570_673886677400175_4655635201722705675_n](https://user-images.githubusercontent.com/90049004/156538736-0072b119-0822-4400-bcc2-8748e8189be6.png)
 
-The app uses a free web dyno. Therefore, if the dyno doesn't receive any web traffic in a 30-minute period, it will sleep. In order to avoid this, the website is pinged every 15 minutes using New Relic add-on.
+The app uses a free lightweight Linux container. Therefore, if the container doesn't receive any web traffic in a 30-minute period, it will sleep. In order to avoid this, the website is pinged every 15 minutes using New Relic add-on.
 
 ![image](https://user-images.githubusercontent.com/90049004/156754907-e2cd3c11-961d-4e69-967a-5bb1286cb84f.png)
 

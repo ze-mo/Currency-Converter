@@ -1,8 +1,8 @@
-# Currency Converter webapp
+# Currency Converter web app
 https://mycurrencyconverterproject.herokuapp.com
 
 Website overview:
-The project website is a simple forex calculator, able to convert up to 5 currencies with an accurracy of 10 mins. 
+The project website is a simple forex calculator, able to convert 5 currencies. 
 
 ### Features
 - currency conversion

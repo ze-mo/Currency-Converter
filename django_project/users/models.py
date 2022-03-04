@@ -19,4 +19,3 @@ class RatesHistory(models.Model):
 
     class Meta:
         ordering = ['-conversion_date']
-

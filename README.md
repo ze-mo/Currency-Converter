@@ -2,13 +2,13 @@
 https://mycurrencyconverterproject.herokuapp.com
 
 Website overview:
-The project website is a simple forex calculator, able to convert up to 5 currencies with an accurracy of 10 mins. It offers conversion history of registered users and profile updates, such as changing profile picture, email, username and password.
+The project website is a simple forex calculator, able to convert up to 5 currencies with an accurracy of 10 mins. 
 
 ### Features
 - currency conversion
 - login/registration
-- conversion history
-- profile update functionality
+- conversion history - only for registered users
+- profile update functionality - ability to change username, profile picture, email & password
 
 ### Project Summary:
 The website is built using the Django framework and is deployed using Heroku (cloud platform as a service). User authentication, profile information and currency exchange rates are stored in PostgreSQL database tables. Images are stored in AWS S3 bucket service.
@@ -18,19 +18,19 @@ Heroku scheduler:
 
 ![274684570_673886677400175_4655635201722705675_n](https://user-images.githubusercontent.com/90049004/156538736-0072b119-0822-4400-bcc2-8748e8189be6.png)
 
-The app uses a free web dyno. Therefore, if the dyno doesn't receive any web traffic in a 30-minute period, it will sleep. In order to avoid this, the website is pinged every 15 minutes.
+The app uses a free web dyno. Therefore, if the dyno doesn't receive any web traffic in a 30-minute period, it will sleep. In order to avoid this, the website is pinged every 15 minutes using New Relic add-on.
 
-![274204619_930172414342331_8691057965165666922_n](https://user-images.githubusercontent.com/90049004/156539231-9436bd96-259d-4e80-86c0-d87e220ab79e.png)
+![image](https://user-images.githubusercontent.com/90049004/156754907-e2cd3c11-961d-4e69-967a-5bb1286cb84f.png)
 
 > Website structure and design inspired by CoreyMSchafer and Django documentation.
 
 ### Features to be added:
-- delete profile functionality
+- Delete profile functionality
 - Conversion history pagination
 - Responsive web design for mobile compatibility
 - Currency fluctuation charts
 
 *Disclaimer:
 Please refer to the postgres-deployment branch for the deployed version of the website!
-The main branch contains a project structure with a MySQL, SQLite3 and Cassandra databases, which were initially intended for deployment,
-however due to some deployment issues, the active website uses only PostgreSQL database.
+The main branch version of the project collects and stores time series data in a Cassandra database with an interval of 15 minutes, tracking currency fluctuations 
+for a long period of time, which were initially intended for deployment, however due to some deployment issues, the active website uses only PostgreSQL database.
